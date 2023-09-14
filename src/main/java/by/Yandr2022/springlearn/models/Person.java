@@ -1,9 +1,7 @@
 package by.Yandr2022.springlearn.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name="person")
@@ -21,7 +19,13 @@ public class Person {
     @Min(value = 1, message = "Age should be greater than 0")
     @Column(name="age")
     private int age;
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
+    private String email;
 
+    @Pattern(regexp = "([A-Z]\\w+, ){2}\\d{6}"
+            , message = "Your address should be in this format: Country, City, Postal Code (6 digits)")
+    private String address;
 
     public Person() {
 
@@ -30,6 +34,8 @@ public class Person {
     public Person(String name, int age, String email, String address) {
         this.name = name;
         this.age = age;
+        this.email = email;
+        this.address = address;
     }
 
 
@@ -55,6 +61,22 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override
